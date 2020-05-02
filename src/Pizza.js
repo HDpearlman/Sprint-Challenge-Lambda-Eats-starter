@@ -56,9 +56,12 @@ const changeHandler = e =>{
 //submitHandler
 const [buttonState, setButtonState] =useState(true)
 
+
+const [yourOrder, setYourOrder] = useState()
 const handleSubmit = e =>{
     e.preventDefault();
     console.log('your order', formState)
+    setYourOrder(formState)
     setFormState({
         name:'',
         size:'large',
@@ -69,7 +72,7 @@ const handleSubmit = e =>{
         specialInstructions:''
     
     })
-
+    
 
 }
 
@@ -132,6 +135,8 @@ useEffect(() => {
 
         <button disabled={buttonState} type='submit'>Submit order</button>
         </form>
+
+        <div><pre>{JSON.stringify(yourOrder, null, 2)}</pre></div>
 
 {/* //name text input
 

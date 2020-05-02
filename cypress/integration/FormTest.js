@@ -28,7 +28,7 @@ describe('My First Test', function () {
 
             cy.get('#size').select('medium')
 
-            cy.get(':nth-child(2) > label > input').click()
+            cy.get('form > :nth-child(1) > label > input').click()
 
             cy.get(':nth-child(3) > label > input').click()
 

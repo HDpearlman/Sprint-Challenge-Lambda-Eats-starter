@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from 'styled-components'
 
 const Pizza = () =>{
@@ -53,16 +53,23 @@ const changeHandler = e =>{
     console.log(formState)
 }
 
+
+
+
 //submitHandler
 const [buttonState, setButtonState] =useState(true)
 
 
 const [yourOrder, setYourOrder] = useState()
-const handleSubmit = e =>{
-    e.preventDefault();
-    console.log('your order', formState)
-    setYourOrder(formState)
-    setFormState({
+
+const handleSubmit = event => {
+
+    event.preventDefault();
+
+    axios.post('https://reqres.in/api/users', formState).then(response =>{
+      const responseData =response.data
+      setYourOrder({responseData})
+      setFormState({
         name:'',
         size:'large',
         steak:false,
@@ -72,9 +79,34 @@ const handleSubmit = e =>{
         specialInstructions:''
     
     })
+
+    }).catch(err => console.log(err))
+
+    
+    
+    
+    
+  }
+
+// const handleSubmit = e =>{
+//     e.preventDefault();
+
+//     console.log('your order', formState)
+    
+//     setYourOrder(formState)
+//     setFormState({
+//         name:'',
+//         size:'large',
+//         steak:false,
+//         mushrooms:false,
+//         onion:false,
+//         bacon:false,
+//         specialInstructions:''
+    
+//     })
     
 
-}
+// }
 
 useEffect(() => {
     schema.isValid(formState).then(valid => {
